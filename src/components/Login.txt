@@ -1,0 +1,126 @@
+import React, { Component } from 'react'
+import axiosInstance from "../axiosApi";
+
+class Login extends Component {
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+             username: "",
+             password: ""
+        };
+
+        this.inputChanged = this.inputChanged.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    
+
+    login = event => {
+        console.log(this.state.credentials)
+        fetch('http://127.0.0.1:8000/api/token/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.credentials)
+        })
+        .then(data => data.json())
+        .then(
+            data => {
+                console.log(data)
+            }
+        )
+        .catch(error => console.error(error))
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        try {
+            const response = axiosInstance.post('/api/token/', {
+                username: this.state.username,
+                password: this.state.password
+            });
+            console.log(response)
+            axiosInstance.defaults.headers['Authorization'] = "JWT " + response.data.access;
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    inputChanged = event => {
+        this.setState({[event.target.name]: event.target.value});
+        {/*
+            const cred = this.state.credentials;
+            cred[event.target.name] = event.target.value;
+            this.setState({credentials: cred})
+        */}
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Login User Form</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Username:
+                        <input type='text' name='username' 
+                            value={this.state.username}
+                            onChange={this.inputChanged}
+                            required
+                        />
+                    </label>
+                    <br />
+
+                    <label>
+                        Password:
+                        <input type='password' name='password'
+                            value={this.state.password}
+                            onChange={this.inputChanged}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <input type="submit" value="Submit"/>
+                </form>
+                
+            </div>
+        )
+    }
+}
+
+export default Login
+
+
+render() {
+        return (
+            <div>
+                <h1>Login User Form</h1>
+                <form onSubmit={this.formSubmit}>
+                    <label>
+                        Username:
+                        <input type='text' name='username' 
+                            value={this.state.username}
+                            onChange={this.saveInputs}
+                            required
+                        />
+                    </label>
+                    <br />
+
+                    <label>
+                        Password:
+                        <input type='password' name='password'
+                            value={this.state.password}
+                            onChange={this.saveInputs}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <input type="submit" value="Submit" disabled={this.state.btnDisabled}/>
+                </form>
+                
+            </div>
+        )
+    }
