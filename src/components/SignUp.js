@@ -7,6 +7,7 @@ class SignUp extends Component {
     
         this.state = {
             registrations: [],
+            status: '',
             username: '',
             password: '',
             password2: '',
@@ -60,7 +61,7 @@ class SignUp extends Component {
 
     resetForm() {
         this.setState({
-            username: '', password: '', password2: '', registration_number: '',email: '', first_name: '', last_name:''
+            status: '', username: '', password: '', password2: '', registration_number: '',email: '', first_name: '', last_name:''
         })
     }
 
@@ -70,6 +71,7 @@ class SignUp extends Component {
     
     render() {
         var reg = this.state.registrations;
+        // upon registration, redirect to dashboard
         return (
             <div>
                 {/*
@@ -92,6 +94,17 @@ class SignUp extends Component {
                 */}
                 
                 <form method='POST' onSubmit={this.fetchSubmit}>
+                    <div className='form-group'>
+                        <label>Status:</label>
+                        <input 
+                            type='text'
+                            name='status'
+                            className="form-control"
+                            value={this.state.status}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
                     <div className='form-group'>
                         <label>Username:</label>
                         <input 
