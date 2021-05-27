@@ -1,0 +1,138 @@
+import React, { Component } from 'react'
+import AuthHandler from '../utils/AuthHandler'
+
+class Courses extends Component {
+
+    constructor() {
+        super()
+    
+        this.state = {
+            all_courses: [],
+            semester: '',
+            course_code: '',
+            course_name: '',
+            course_type: '',
+            course_unit: '',
+            minimum_credit: '',
+            maximum_credit: '',
+        }
+        this.inputChanged = this.inputChanged.bind(this)
+        this.fetchSubmit = this.fetchSubmit.bind(this)
+
+    }
+
+    componentDidMount() {
+        console.log(AuthHandler.checkTokenExpiry());
+    }
+
+    fetchSubmit(e) {
+        e.preventDefault()
+        fetch('http://127.0.0.1:8000/users/create_course/', {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then((data) => 
+            this.setState({
+                all_courses: data
+            })
+        );
+        this.resetForm()
+    }
+    
+
+    inputChanged = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+
+    resetForm(){this.setState(
+        {semester: '', course_code: '', course_name: '', course_type: '', course_unit: '', minimum_credit: '', maximum_credit: ''}
+    )}
+
+    render() {
+        
+        return (
+            <div>
+                <div className='block-header'>
+                    <h2>ADD COURSES</h2>
+                </div>
+                <form onSubmit={this.fetchSubmit} method="POST">
+                    <div className="form-group">
+                        <label for='semester'>Semester:</label>
+                        <select name='semester' value={this.state.semester} onChange={this.inputChanged}>
+                            <option value='First Semester' selected>First Semester</option>
+                            <option value='Second Semester'>Second Semester</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label for='course_code'>Course Code:</label>
+                        <input type="text" 
+                            name='course_code'
+                            className="form-control"
+                            value={this.state.course_code}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label for='course_name'>Course Name:</label>
+                        <input type="text" 
+                            name='course_name'
+                            className="form-control"
+                            value={this.state.course_name}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label for='course_type'>Course Type:</label>
+                        <select name='course_type' value={this.state.course_type} onChange={this.inputChanged}>
+                            <option value='Core Course' selected>Core Course</option>
+                            <option value='Elective Course'>Elective Course</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label for='course_unit'>Course Unit:</label>
+                        <input type="number" 
+                            name='course_unit'
+                            max='99'
+                            className="form-control"
+                            value={this.state.course_unit}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label for='minimum_credit'>Minimum Credit:</label>
+                        <input type="number" 
+                            name='minimum_credit'
+                            className="form-control"
+                            value={this.state.minimum_credit}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label for='maximum_credit'>Maximum Credit:</label>
+                        <input type="number" 
+                            name='maximum_credit'
+                            className="form-control"
+                            value={this.state.maximum_credit}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button className="btn btn-info"><a href='/list_all_courses'>Show All Courses</a></button>
+                </form>
+            </div>
+        )
+    }
+}
+
+export default Courses
