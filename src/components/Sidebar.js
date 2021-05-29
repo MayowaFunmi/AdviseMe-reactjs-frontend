@@ -83,8 +83,8 @@ class Sidebar extends Component {
                     </div>
             
                     <div className="menu">
-                        <div className="slimScrollDiv" style={{position: "relative", overflow: "hidden", width: "auto", height: "121px"}}>
-                            <ul className="list" style={{overflow: "hidden", width: "auto", height: "121px"}}>
+                        <div className="slimScrollDiv" style={{position: "relative", overflow: "hidden"}}>
+                            <ul className="list" style={{overflow: "hidden", width: "auto"}}>
                                 {Config.sidebarItem.map(
                                     (item) => <li key={item.index} className={item.index == this.props.activepage ? 'active' : ""}>
                                         <Link to={item.url} className="toggled waves-effect waves-block">

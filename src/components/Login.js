@@ -5,8 +5,9 @@ import "adminbsb-materialdesign/plugins/bootstrap/css/bootstrap.css";
 import "adminbsb-materialdesign/plugins/node-waves/waves.css";
 import "adminbsb-materialdesign/plugins/animate-css/animate.css";
 import "adminbsb-materialdesign/css/style.css";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Config from "../utils/Config";
+import SignUp from './SignUp';
 
 class Login extends Component {
 
@@ -44,7 +45,7 @@ class Login extends Component {
           this.setState({ loginStatus: 4 });
         } else {
           this.setState({ loginStatus: 3 });
-          //window.location = Config.homeUrl;
+          window.location = Config.homeUrl;
         }
     };
 
@@ -98,7 +99,7 @@ class Login extends Component {
             />
             <div className="login-box">
               <div className="logo">
-                <a href="javascript:void(0);">AdviseMe Project</a>
+                <h1>AdviseMe Project</h1>
               </div>
               <div className="card">
                 <div className="body">
@@ -115,7 +116,7 @@ class Login extends Component {
                           name="username"
                           placeholder="Username"
                           required
-                          autofocus
+                          autoFocus
                           onChange={this.saveInputs}
                         />
                       </div>
@@ -143,7 +144,7 @@ class Login extends Component {
                           id="rememberme"
                           className="filled-in chk-col-pink"
                         />
-                        <label for="rememberme">Remember Me</label>
+                        <label>Remember Me</label>
                       </div>
                       <div className="col-xs-4">
                         <button
@@ -157,7 +158,7 @@ class Login extends Component {
                     </div>
                     <div className="row m-t-15 m-b--20">
                       <div className="col-xs-6">
-                        <a href="sign-up.html">Register Now!</a>
+                        <Link to={Config.signupUrl}>Register Now!</Link>
                       </div>
                       <div className="col-xs-6 align-right">
                         <a href="forgot-password.html">Forgot Password?</a>
