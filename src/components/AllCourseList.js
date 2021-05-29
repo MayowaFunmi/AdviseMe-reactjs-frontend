@@ -2,7 +2,8 @@ import React from 'react'
 
 const AllCourseList = (props) => {
     return (
-        <div>
+        <section className='content'>
+            <div className='container-fluid'>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -30,7 +31,9 @@ const AllCourseList = (props) => {
                     </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+            
+        </section>
     )
 }
 

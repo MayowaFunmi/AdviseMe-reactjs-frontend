@@ -32,12 +32,16 @@ class SignUp extends Component {
                 'Content-type': 'application/json'
             },
         })
-        .then(response => response.json())
-        .then((data) => 
-            this.setState({
-                registrations: data
-            })
-        );
+        .then(function(response) {
+            if (response.status === 200) {
+                window.location = '/';   // redirect to login page after signup
+            }
+        })
+        //.then(response => response.json())
+        //.then((data) => this.setState({registrations: data}))
+        .catch(function(error) {
+            console.log('ERROR: ', error)
+        })
         this.resetForm()
     }
 
@@ -50,8 +54,7 @@ class SignUp extends Component {
             data: this.state
         }).then((response)=> {
             if (response.data.status === 'success') {
-                alert('Registration Successful');
-                this.resetForm()
+                window.location = '/';   // redirect to login page after signup
             } else if (response.data.status === 'fail') {
                 alert('Registration Failed. Please try again/')
                 this.resetForm()
@@ -73,7 +76,7 @@ class SignUp extends Component {
         var reg = this.state.registrations;
         // upon registration, redirect to dashboard
         return (
-            <div>
+            <div className='signup-page'>
                 {/*
                 <div>
                     {reg.map(myreg => {
@@ -92,96 +95,102 @@ class SignUp extends Component {
                     })}
                 </div>
                 */}
-                
-                <form method='POST' onSubmit={this.fetchSubmit}>
-                    <div className='form-group'>
-                        <label>Status:</label>
-                        <input 
-                            type='text'
-                            name='status'
-                            className="form-control"
-                            value={this.state.status}
-                            onChange={this.inputChanged}
-                        />
+                <div className='signup-box'>
+                    <div className='logo'>
+                        <h1>Sign Up Form</h1>
                     </div>
 
-                    <div className='form-group'>
-                        <label>Username:</label>
-                        <input 
-                            type='text'
-                            name='username'
-                            className="form-control"
-                            value={this.state.username}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                    <div className='card'>
+                        <div className='body'>
+                        <form id='sign_up' method='POST' onSubmit={this.fetchSubmit}>
+                            <div className="form-group">
+                                <label>Status:</label>
+                                <select name='status' value={this.state.status} onChange={this.inputChanged}>
+                                    <option value='Student'>Student</option>
+                                    <option value='Course Adviser'>Course Adviser</option>
+                                </select>
+                            </div>
 
-                    <div className='form-group'>
-                        <label>Password:</label>
-                        <input 
-                            type='password'
-                            name='password'
-                            className="form-control"
-                            value={this.state.password}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className='form-group'>
+                                <label>Username:</label>
+                                <input 
+                                    type='text'
+                                    name='username'
+                                    className="form-control"
+                                    value={this.state.username}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <div className='form-group'>
-                        <label>Confirm Password:</label>
-                        <input 
-                            type='password'
-                            name='password2'
-                            className="form-control"
-                            value={this.state.password2}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className='form-group'>
+                                <label>Password:</label>
+                                <input 
+                                    type='password'
+                                    name='password'
+                                    className="form-control"
+                                    value={this.state.password}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <div className='form-group'>
-                        <label>Registration Number:</label>
-                        <input 
-                            type='text'
-                            name='registration_number'
-                            className="form-control"
-                            value={this.state.registration_number}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className='form-group'>
+                                <label>Confirm Password:</label>
+                                <input 
+                                    type='password'
+                                    name='password2'
+                                    className="form-control"
+                                    value={this.state.password2}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label>Email Address:</label>
-                        <input type="email" 
-                            name='email'
-                            className="form-control"
-                            value={this.state.email}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className='form-group'>
+                                <label>Registration Number:</label>
+                                <input 
+                                    type='text'
+                                    name='registration_number'
+                                    className="form-control"
+                                    value={this.state.registration_number}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label>First Name:</label>
-                        <input type="text" 
-                            name='first_name'
-                            className="form-control"
-                            value={this.state.first_name}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className="form-group">
+                                <label>Email Address:</label>
+                                <input type="email" 
+                                    name='email'
+                                    className="form-control"
+                                    value={this.state.email}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label>Last Name:</label>
-                        <input type="text" 
-                            name='last_name'
-                            className="form-control"
-                            value={this.state.last_name}
-                            onChange={this.inputChanged}
-                        />
-                    </div>
+                            <div className="form-group">
+                                <label>First Name:</label>
+                                <input type="text" 
+                                    name='first_name'
+                                    className="form-control"
+                                    value={this.state.first_name}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
 
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                            <div className="form-group">
+                                <label>Last Name:</label>
+                                <input type="text" 
+                                    name='last_name'
+                                    className="form-control"
+                                    value={this.state.last_name}
+                                    onChange={this.inputChanged}
+                                />
+                            </div>
+
+                            <button type="submit" className="btn btn-primary">Submit</button>
                     
-                </form>
+                        </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }

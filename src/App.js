@@ -9,6 +9,7 @@ import { PrivateRouteNew } from './utils/PrivateRouteNew';
 import HomeComponent from './components/HomeComponent';
 import LogoutComponent from './components/LogoutComponent';
 import Config from './utils/Config';
+import StudentProfile from './components/StudentProfile';
 
 
 function App() {
@@ -16,12 +17,14 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route exact path="/signup" component={SignUp}></Route>
+          <Route exact path={Config.signupUrl} component={SignUp}></Route>
           <Route exact path="/" component={Login}></Route>
           <Route exact path={Config.logoutPageUrl} component={LogoutComponent}></Route>
           <PrivateRouteNew exact path="/home" activepage='0' page={<HomeComponent />}></PrivateRouteNew>
           <PrivateRouteNew exact path="/add_courses" activepage='1' page={<Courses />}></PrivateRouteNew>
-          <Route exact path="/list_all_courses" component={CourseList}></Route>
+          <PrivateRouteNew exact path="/list_all_courses" activepage='2' page={<CourseList />}></PrivateRouteNew>
+          <PrivateRouteNew exact path="/student_profile" activepage='3' page={<StudentProfile />}></PrivateRouteNew>
+
         </Switch>
       </Router>
     </div>

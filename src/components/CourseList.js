@@ -11,7 +11,7 @@ class CourseList extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchCourses()
     }
 
@@ -47,7 +47,6 @@ class CourseList extends Component {
                                 minimum_credit={course.minimum_credit}
                                 maximum_credit={course.maximum_credit}
                             />
-                            <br />
                         </div>
                     )
                 })}

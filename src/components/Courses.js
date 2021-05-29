@@ -63,7 +63,7 @@ class Courses extends Component {
                 </div>
                 <form onSubmit={this.fetchSubmit} method="POST">
                     <div className="form-group">
-                        <label for='semester'>Semester:</label>
+                        <label>Semester:</label>
                         <select name='semester' value={this.state.semester} onChange={this.inputChanged}>
                             <option value='First Semester' selected>First Semester</option>
                             <option value='Second Semester'>Second Semester</option>
@@ -71,7 +71,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='course_code'>Course Code:</label>
+                        <label>Course Code:</label>
                         <input type="text" 
                             name='course_code'
                             className="form-control"
@@ -81,7 +81,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='course_name'>Course Name:</label>
+                        <label>Course Name:</label>
                         <input type="text" 
                             name='course_name'
                             className="form-control"
@@ -91,7 +91,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='course_type'>Course Type:</label>
+                        <label>Course Type:</label>
                         <select name='course_type' value={this.state.course_type} onChange={this.inputChanged}>
                             <option value='Core Course' selected>Core Course</option>
                             <option value='Elective Course'>Elective Course</option>
@@ -99,7 +99,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='course_unit'>Course Unit:</label>
+                        <label>Course Unit:</label>
                         <input type="number" 
                             name='course_unit'
                             max='99'
@@ -110,7 +110,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='minimum_credit'>Minimum Credit:</label>
+                        <label>Minimum Credit:</label>
                         <input type="number" 
                             name='minimum_credit'
                             className="form-control"
@@ -120,7 +120,7 @@ class Courses extends Component {
                     </div>
 
                     <div className="form-group">
-                        <label for='maximum_credit'>Maximum Credit:</label>
+                        <label>Maximum Credit:</label>
                         <input type="number" 
                             name='maximum_credit'
                             className="form-control"
