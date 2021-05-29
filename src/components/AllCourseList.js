@@ -4,7 +4,7 @@ const AllCourseList = (props) => {
     return (
         <section className='content'>
             <div className='container-fluid'>
-            <table class="table table-striped">
+            <table className="table table-striped">
                 <thead>
                     <tr>
                         <th scope="col">S/No</th>
