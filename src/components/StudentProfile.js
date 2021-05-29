@@ -1,11 +1,144 @@
+import axios from 'axios'
 import React, { Component } from 'react'
+import AuthHandler from '../utils/AuthHandler'
 
 class StudentProfile extends Component {
+
+    constructor() {
+        super()
+    
+        this.state = {
+            id: '',
+            middle_name: '',
+            course: '',
+            student_level: '',
+            birthday: '',
+            gender: '',
+            address: '',
+            phone_number: '',
+            country: '',
+            profile_picture: null,
+        }
+
+        this.inputChanged = this.inputChanged.bind(this)
+        this.imageChanged = this.imageChanged.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    inputChanged = e => {
+        this.setState({[e.target.name]: e.target.value})
+    }
+    
+    imageChanged = e => {
+        this.setState({image:e.target.files[0]});   
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        let form_data = new FormData();
+        form_data.append('middle_name', this.state.middle_name);
+        form_data.append('course', this.state.course);
+        form_data.append('student_level', this.state.student_level);
+        form_data.append('birthday', this.state.birthday);
+        form_data.append('gender', this.state.gender);
+        form_data.append('address', this.state.address);
+        form_data.append('phone_number', this.state.phone_number);
+        form_data.append('profile_picture', this.state.profile_picture);
+
+        let url = 'http://127.0.0.1:8000/users/create_student_profile/';
+        axios.post(url, form_data, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => console.log(err))
+    }
+
     render() {
+        //console.log(AuthHandler.getLoginToken());
+
         return (
             <section className='content'>
                 <div className='container-fluid'>
-                
+                    <div className='block-header'>
+                        <h2>Create Student Profile</h2>
+                    </div>
+
+                    <form onSubmit={this.handleSubmit} id='form' encType='"multipart/form-data'>
+                    <div className="form-group">
+                        <label>Middle Name:</label>
+                        <input type="text" 
+                            name='middle_name'
+                            className="form-control"
+                            placeholder='Enter your middle name...'
+                            value={this.state.middle_name}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Course of study:</label>
+                        <input type="text" 
+                            name='course'
+                            className="form-control"
+                            placeholder='Enter your course of study...'
+                            value={this.state.course}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Level:</label>
+                        <input type="text" 
+                            name='student_level'
+                            className="form-control"
+                            placeholder='Enter your level...'
+                            value={this.state.student_level}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Birthday:</label>
+                        <input type="date" 
+                            name='birthday'
+                            className="form-control"
+                            value={this.state.birthday}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Gender:</label>
+                        <select name='gender' value={this.state.gender} onChange={this.inputChanged}>
+                            <option value='Male'>Male</option>
+                            <option value='Female'>Female</option>
+                        </select>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Address</label>
+                        <input type="text" 
+                            name='address'
+                            className="form-control"
+                            value={this.state.address}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <label>Profile Picture:</label>
+                    <input 
+                        type='file' 
+                        name='profile_picture' 
+                        className='form-control' 
+                        onChange={this.imageChanged}
+                    />
+                    
+                    <button type="submit" className="btn btn-block btn-lg bg-pink waves-effect">Save Profile</button>
+                    </form>
                 </div>
             </section>
         )
