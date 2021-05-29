@@ -30,7 +30,7 @@ class StudentProfile extends Component {
     }
     
     imageChanged = e => {
-        this.setState({image:e.target.files[0]});   
+        this.setState({profile_picture:e.target.files[0]});   
     }
 
     handleSubmit = (e) => {
@@ -43,7 +43,8 @@ class StudentProfile extends Component {
         form_data.append('gender', this.state.gender);
         form_data.append('address', this.state.address);
         form_data.append('phone_number', this.state.phone_number);
-        form_data.append('profile_picture', this.state.profile_picture);
+        form_data.append('country', this.state.country);
+        form_data.append('profile_picture', this.state.profile_picture, this.state.profile_picture.name);
 
         let url = 'http://127.0.0.1:8000/users/create_student_profile/';
         axios.post(url, form_data, {
@@ -125,6 +126,26 @@ class StudentProfile extends Component {
                             name='address'
                             className="form-control"
                             value={this.state.address}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" 
+                            name='phone_number'
+                            className="form-control"
+                            value={this.state.phone_number}
+                            onChange={this.inputChanged}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Country</label>
+                        <input type="text" 
+                            name='country'
+                            className="form-control"
+                            value={this.state.country}
                             onChange={this.inputChanged}
                         />
                     </div>
