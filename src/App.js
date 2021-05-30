@@ -10,6 +10,7 @@ import HomeComponent from './components/HomeComponent';
 import LogoutComponent from './components/LogoutComponent';
 import Config from './utils/Config';
 import StudentProfile from './components/StudentProfile';
+import CouncillorProfile from './components/CouncillorProfile';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
           <PrivateRouteNew exact path="/add_courses" activepage='1' page={<Courses />}></PrivateRouteNew>
           <PrivateRouteNew exact path="/list_all_courses" activepage='2' page={<CourseList />}></PrivateRouteNew>
           <PrivateRouteNew exact path="/student_profile" activepage='3' page={<StudentProfile />}></PrivateRouteNew>
-
+          <PrivateRouteNew exact path="/councillor_profile" activepage='4' page={<CouncillorProfile />}></PrivateRouteNew>
         </Switch>
       </Router>
     </div>
