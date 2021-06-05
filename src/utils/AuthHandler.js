@@ -11,6 +11,7 @@ class AuthHandler {
         if (response.status === 200) {
           reactLocalStorage.set("token", response.data.access);
           reactLocalStorage.set("refresh", response.data.refresh);
+          reactLocalStorage.set('username', username);
           callback({ error: false, message: "Login Successfull..." });
         }
       })
@@ -25,10 +26,15 @@ class AuthHandler {
 
   static loggedIn() {
     if (reactLocalStorage.get("token") && reactLocalStorage.get("refresh")) {
+      //console.log(reactLocalStorage.get('username'))
       return true;
     } else {
       return false;
     }
+  }
+
+  static getUsername() {
+    return (reactLocalStorage.get('username'))
   }
 
   static getLoginToken() {

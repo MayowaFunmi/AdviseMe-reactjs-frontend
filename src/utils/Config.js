@@ -5,6 +5,9 @@ class Config{
     static signupUrl = '/signup';
     static createCourseUrl = 'http://127.0.0.1:8000/users/create_course/';
     static listAllCoursesUrl = 'http://127.0.0.1:8000/users/all_course_list';
+    static listAllUsersUrl = 'http://127.0.0.1:8000/users/list_users';
+    static studentProfileUrl = 'http://127.0.0.1:8000/users/create_student_profile/';
+
 
     static sidebarItem = [
         { index: '0', title: "Home", url: '/', icons: 'home' },

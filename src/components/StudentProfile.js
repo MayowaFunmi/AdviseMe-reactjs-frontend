@@ -1,82 +1,81 @@
 import axios from 'axios'
 import React, { Component } from 'react'
+import ApiHandler from '../utils/apiHandler'
 import AuthHandler from '../utils/AuthHandler'
 
 class StudentProfile extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
+        this.formSubmit = this.formSubmit.bind(this)
+        this.formRef = React.createRef();
+    }
+    state = {
+        errorRes: false,
+        btnMessage: 0,
+        errorMessageSuccess: '',
+        errorMessageFail: '',
+        sendData: false,
+    };
     
-        this.state = {
-            id: '',
-            middle_name: '',
-            course: '',
-            student_level: '',
-            birthday: '',
-            gender: '',
-            address: '',
-            phone_number: '',
-            country: '',
-            profile_picture: null,
-        }
 
-        this.inputChanged = this.inputChanged.bind(this)
-        this.imageChanged = this.imageChanged.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-    }
+    async formSubmit(event) {
+        event.preventDefault();
+        this.setState({ btnMessage: 1 });
 
-    inputChanged = e => {
-        this.setState({[e.target.name]: e.target.value})
-    }
-    
-    imageChanged = e => {
-        this.setState({profile_picture:e.target.files[0]});   
-    }
+        var api_handler = new ApiHandler();
+        var users = api_handler.fetchAllUsers()
+        var response = await api_handler.saveStudentProfile(
+            //this.props.match.params.id,
+            event.target.user.value,
+            event.target.middle_name.value,
+            event.target.course.value,
+            event.target.student_level.value,
+            event.target.birthday.value,
+            event.target.gender.value,
+            event.target.address.value,
+            event.target.phone_number.value,
+            event.target.country.value,
+            event.target.profile_picture.files[0]
+        );
+        console.log(response)
+        //this.formRef.current.reset();
+        this.setState({ btnMessage: 0 });
+        this.setState({ errorRes: false });
+        this.setState({ errorMessageSuccess: 'Student Profile Added Successfully!!!' });
+        this.setState({ errorMessageFail: 'Failed To Add Student Profile!!!' });
+        this.setState({ sendData: true });
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let form_data = new FormData();
-        form_data.append('middle_name', this.state.middle_name);
-        form_data.append('course', this.state.course);
-        form_data.append('student_level', this.state.student_level);
-        form_data.append('birthday', this.state.birthday);
-        form_data.append('gender', this.state.gender);
-        form_data.append('address', this.state.address);
-        form_data.append('phone_number', this.state.phone_number);
-        form_data.append('country', this.state.country);
-        form_data.append('profile_picture', this.state.profile_picture, this.state.profile_picture.name);
-
-        let url = 'http://127.0.0.1:8000/users/create_student_profile/';
-        axios.post(url, form_data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => console.log(err))
     }
 
     render() {
-        //console.log(AuthHandler.getLoginToken());
+        var username = AuthHandler.getUsername();
 
         return (
             <section className='content'>
                 <div className='container-fluid'>
                     <div className='block-header'>
-                        <h2>Create Student Profile</h2>
+                        <h2>Create Student Profile # {username}</h2>
                     </div>
 
-                    <form onSubmit={this.handleSubmit} id='form' encType='"multipart/form-data'>
+                    <form onSubmit={this.formSubmit}>
+                    <div className="form-group">
+                        <label>User:</label>
+                        <input 
+                            type='text'
+                            name='user'
+                            className="form-control"
+                            value={username}
+                            readOnly={true}
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label>Middle Name:</label>
                         <input type="text" 
                             name='middle_name'
                             className="form-control"
                             placeholder='Enter your middle name...'
-                            value={this.state.middle_name}
-                            onChange={this.inputChanged}
                         />
                     </div>
 
@@ -86,8 +85,6 @@ class StudentProfile extends Component {
                             name='course'
                             className="form-control"
                             placeholder='Enter your course of study...'
-                            value={this.state.course}
-                            onChange={this.inputChanged}
                         />
                     </div>
 
@@ -96,9 +93,7 @@ class StudentProfile extends Component {
                         <input type="text" 
                             name='student_level'
                             className="form-control"
-                            placeholder='Enter your level...'
-                            value={this.state.student_level}
-                            onChange={this.inputChanged}
+                            placeholder='Enter your level...'                            
                         />
                     </div>
 
@@ -106,15 +101,13 @@ class StudentProfile extends Component {
                         <label>Birthday:</label>
                         <input type="date" 
                             name='birthday'
-                            className="form-control"
-                            value={this.state.birthday}
-                            onChange={this.inputChanged}
+                            className="form-control"                            
                         />
                     </div>
 
                     <div className="form-group">
                         <label>Gender:</label>
-                        <select name='gender' value={this.state.gender} onChange={this.inputChanged}>
+                        <select name='gender'>
                             <option value='Male'>Male</option>
                             <option value='Female'>Female</option>
                         </select>
@@ -124,9 +117,7 @@ class StudentProfile extends Component {
                         <label>Address</label>
                         <input type="text" 
                             name='address'
-                            className="form-control"
-                            value={this.state.address}
-                            onChange={this.inputChanged}
+                            className="form-control"                            
                         />
                     </div>
 
@@ -134,9 +125,7 @@ class StudentProfile extends Component {
                         <label>Phone Number</label>
                         <input type="text" 
                             name='phone_number'
-                            className="form-control"
-                            value={this.state.phone_number}
-                            onChange={this.inputChanged}
+                            className="form-control"                            
                         />
                     </div>
 
@@ -144,9 +133,7 @@ class StudentProfile extends Component {
                         <label>Country</label>
                         <input type="text" 
                             name='country'
-                            className="form-control"
-                            value={this.state.country}
-                            onChange={this.inputChanged}
+                            className="form-control"                            
                         />
                     </div>
 
@@ -155,10 +142,33 @@ class StudentProfile extends Component {
                         type='file' 
                         name='profile_picture' 
                         className='form-control' 
-                        onChange={this.imageChanged}
                     />
                     
-                    <button type="submit" className="btn btn-block btn-lg bg-pink waves-effect">Save Profile</button>
+                    <button 
+                        type="submit" 
+                        className="btn btn-block btn-lg bg-pink waves-effect"
+                        disabled={this.state.btnMessage == 0 ? false : true}
+                    >
+                        {this.state.btnMessage == 0 ? 'Add Student Profile' : 'Adding Student Profile. Please Wait ...'}
+                    </button>
+
+                    {this.state.errorRes == false && this.state.sendData == true ? (
+                        <div className="alert alert-success">
+                            <strong>Success!</strong> {this.state.errorMessageSuccess}.
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
+                    {this.state.errorRes == true && this.state.sendData == true ? (
+                        <div className="alert alert-danger">
+                            <strong>Failed!</strong>
+                            {this.state.errorMessageFail}.
+                        </div>
+                        ) : (
+                            ""
+                    )}
+
                     </form>
                 </div>
             </section>
