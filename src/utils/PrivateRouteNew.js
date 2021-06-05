@@ -8,9 +8,9 @@ export var PrivateRouteNew = ({ page, activepage, ...rest }) => {
   return (
     <Route
     {...rest}
-      render={() =>
+      render={(props) =>
         AuthHandler.loggedIn() ? (
-        <Home page={page} activepage={activepage} />
+        <Home page={page} activepage={activepage} {...props} />
         ) : (
         <Redirect to="/" />
         )
