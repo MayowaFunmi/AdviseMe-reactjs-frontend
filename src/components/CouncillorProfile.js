@@ -1,79 +1,66 @@
 import axios from 'axios'
 import React, { Component } from 'react'
+import ApiHandler from '../utils/apiHandler';
 import AuthHandler from '../utils/AuthHandler'
 
 class CouncillorProfile extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
+        this.formSubmit = this.formSubmit.bind(this)
+        this.formRef = React.createRef();
+    }
+    state = {
+        errorRes: false,
+        btnMessage: 0,
+        errorMessageSuccess: '',
+        errorMessageFail: '',
+        sendData: false,
+    };
     
-        this.state = {
-            id: '',
-            title: '',
-            qualification: '',
-            discipline: '',
-            years_of_experience: '',
-            birthday: '',
-            gender: '',
-            address: '',
-            phone_number: '',
-            country: '',
-            profile_picture: null,
-        }
 
-        this.inputChanged = this.inputChanged.bind(this)
-        this.imageChanged = this.imageChanged.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+    async formSubmit(event) {
+        event.preventDefault();
+        this.setState({ btnMessage: 1 });
+
+        var api_handler = new ApiHandler();
+        var response = await api_handler.saveCouncillorProfile(
+            event.target.title.value,
+            event.target.user.value,
+            event.target.qualification.value,
+            event.target.discipline.value,
+            event.target.years_of_experience.value,
+            event.target.birthday.value,
+            event.target.gender.value,
+            event.target.address.value,
+            event.target.phone_number.value,
+            event.target.country.value,
+            event.target.profile_picture.files[0]
+        );
+        console.log(response)
+        //this.formRef.current.reset();
+        this.setState({ btnMessage: 0 });
+        this.setState({ errorRes: false });
+        this.setState({ errorMessageSuccess: 'Councillor Profile Added Successfully!!!' });
+        this.setState({ errorMessageFail: 'Failed To Add Councillor Profile!!!' });
+        this.setState({ sendData: true });
+        document.querySelectorAll('input').values='';
+
     }
-
-    inputChanged = e => {
-        this.setState({[e.target.name]: e.target.value})
-    }
-    
-    imageChanged = e => {
-        this.setState({profile_picture:e.target.files[0]});   
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let form_data = new FormData();
-        form_data.append('title', this.state.title);
-        form_data.append('qualification', this.state.qualification);
-        form_data.append('discipline', this.state.discipline);
-        form_data.append('years_of_experience', this.state.years_of_experience);
-        form_data.append('birthday', this.state.birthday);
-        form_data.append('gender', this.state.gender);
-        form_data.append('address', this.state.address);
-        form_data.append('phone_number', this.state.phone_number);
-        form_data.append('country', this.state.country);
-        form_data.append('profile_picture', this.state.profile_picture, this.state.profile_picture.name);
-
-        let url = 'http://127.0.0.1:8000/users/create_councillor_profile/';
-        axios.post(url, form_data, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        })
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => console.log(err))
-    }
-
     render() {
-        //console.log(AuthHandler.getLoginToken());
+        var username = AuthHandler.getUsername();
 
         return (
             <section className='content'>
                 <div className='container-fluid'>
                     <div className='block-header'>
-                        <h2>Create Adviser Profile</h2>
+                        <h2>Create Adviser Profile #{username}</h2>
                     </div>
 
-                    <form onSubmit={this.handleSubmit} id='form' encType='"multipart/form-data'>
+                    <form onSubmit={this.formSubmit}>
                         <div className="form-group">
                             <label>Title:</label>
-                            <select name='title' value={this.state.title} onChange={this.inputChanged}>
+                            <select name='title'>
                                 <option value='Prof'>Prof</option>
                                 <option value='Dr'>Dr</option>
                                 <option value='Engr'>Engr</option>
@@ -83,13 +70,22 @@ class CouncillorProfile extends Component {
                         </div>
 
                         <div className="form-group">
+                        <label>User:</label>
+                            <input 
+                                type='text'
+                                name='user'
+                                className="form-control"
+                                value={username}
+                                readOnly={true}
+                            />
+                        </div>
+
+                        <div className="form-group">
                             <label>Qualification:</label>
                             <input type="text" 
                                 name='qualification'
                                 className="form-control"
                                 placeholder='Enter Your Highest Qualification...'
-                                value={this.state.qualification}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -99,8 +95,6 @@ class CouncillorProfile extends Component {
                                 name='discipline'
                                 className="form-control"
                                 placeholder='Enter Your Area of Specicialization...'
-                                value={this.state.discipline}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -110,8 +104,6 @@ class CouncillorProfile extends Component {
                                 name='years_of_experience'
                                 className="form-control"
                                 placeholder='How many years of experience do you have?'
-                                value={this.state.years_of_experience}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -120,14 +112,12 @@ class CouncillorProfile extends Component {
                             <input type="date" 
                                 name='birthday'
                                 className="form-control"
-                                value={this.state.birthday}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
                         <div className="form-group">
                             <label>Gender:</label>
-                            <select name='gender' value={this.state.gender} onChange={this.inputChanged}>
+                            <select name='gender'>
                                 <option value='Male'>Male</option>
                                 <option value='Female'>Female</option>
                             </select>
@@ -138,8 +128,6 @@ class CouncillorProfile extends Component {
                             <input type="text" 
                                 name='address'
                                 className="form-control"
-                                value={this.state.address}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -148,8 +136,6 @@ class CouncillorProfile extends Component {
                             <input type="text" 
                                 name='phone_number'
                                 className="form-control"
-                                value={this.state.phone_number}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -158,8 +144,6 @@ class CouncillorProfile extends Component {
                             <input type="text" 
                                 name='country'
                                 className="form-control"
-                                value={this.state.country}
-                                onChange={this.inputChanged}
                             />
                         </div>
 
@@ -168,10 +152,32 @@ class CouncillorProfile extends Component {
                             type='file' 
                             name='profile_picture' 
                             className='form-control' 
-                            onChange={this.imageChanged}
                         />
                     
-                        <button type="submit" className="btn btn-block btn-lg bg-pink waves-effect">Save Profile</button>
+                    <button 
+                        type="submit" 
+                        className="btn btn-block btn-lg bg-pink waves-effect"
+                        disabled={this.state.btnMessage == 0 ? false : true}
+                    >
+                        {this.state.btnMessage == 0 ? 'Add Councillor Profile' : 'Adding Councillor Profile. Please Wait ...'}
+                    </button>
+
+                    {this.state.errorRes == false && this.state.sendData == true ? (
+                        <div className="alert alert-success">
+                            <strong>Success!</strong> {this.state.errorMessageSuccess}.
+                        </div>
+                    ) : (
+                        ""
+                    )}
+
+                    {this.state.errorRes == true && this.state.sendData == true ? (
+                        <div className="alert alert-danger">
+                            <strong>Failed!</strong>
+                            {this.state.errorMessageFail}.
+                        </div>
+                        ) : (
+                            ""
+                    )}
                     </form>
                 </div>
             </section>
