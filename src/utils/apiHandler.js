@@ -85,6 +85,33 @@ class ApiHandler {
 
         return response;
     }
+
+    async saveCouncillorProfile(title, user, qualification, discipline, years_of_experience, birthday, gender, address, phone_number, country, profile_picture) {
+        await this.checkLogin();
+
+        // wait until token get updated
+        var form_data = new FormData();
+        form_data.append('title', title);
+        form_data.append('user', AuthHandler.getUsername());
+        form_data.append('qualification', qualification);
+        form_data.append('discipline', discipline);
+        form_data.append('years_of_experience', years_of_experience);
+        form_data.append('birthday', birthday);
+        form_data.append('gender', gender);
+        form_data.append('address', address);
+        form_data.append('phone_number', phone_number);
+        form_data.append('country', country);
+        form_data.append('profile_picture', profile_picture);
+
+        var response = await Axios.post(Config.councillorProfileUrl, form_data, {
+            headers: {
+                Authorization: 'JWT ' + AuthHandler.getLoginToken(),
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        return response;
+    }
     
 }
 

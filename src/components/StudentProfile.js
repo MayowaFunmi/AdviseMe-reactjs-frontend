@@ -24,7 +24,6 @@ class StudentProfile extends Component {
         this.setState({ btnMessage: 1 });
 
         var api_handler = new ApiHandler();
-        var users = api_handler.fetchAllUsers()
         var response = await api_handler.saveStudentProfile(
             //this.props.match.params.id,
             event.target.user.value,
