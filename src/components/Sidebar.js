@@ -80,7 +80,7 @@ class Sidebar extends Component {
     render() {
         var my_status = this.state.login_status;
         console.log(my_status)
-        if (my_status == "('student', 'student')") {
+        if (my_status == "('student', 'student')" || "Student") {
             return (
                 <section>
                     <aside id="leftsidebar" className="sidebar">

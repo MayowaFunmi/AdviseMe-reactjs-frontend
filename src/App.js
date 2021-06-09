@@ -19,7 +19,7 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route exact path={Config.signupUrl} component={SignUp}></Route>
+          <Route exact path="/signup" component={SignUp}></Route>
           <Route exact path="/" component={Login}></Route>
           <Route exact path={Config.logoutPageUrl} component={LogoutComponent}></Route>
           <PrivateRouteNew exact path="/home" activepage='0' page={HomeComponent}></PrivateRouteNew>
