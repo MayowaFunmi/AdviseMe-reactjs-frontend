@@ -9,13 +9,23 @@ class Config{
     static studentProfileUrl = 'http://127.0.0.1:8000/users/create_student_profile/';
     static councillorProfileUrl = 'http://127.0.0.1:8000/users/create_councillor_profile/';
 
-    static sidebarItem = [
+    static sidebarItemStudent = [
         { index: '0', title: "Home", url: '/', icons: 'home' },
-        { index: '1', title: "Register Courses", url: '/add_courses', icons: 'assessment' },
         //{ index: '2', title: "All Courses", url: '/list_all_courses', icons: 'bookmark' },
         { index: '3', title: "Student Profile", url: '/student_profile', icons: 'perm_identity' },
+        { index: '5', title: "Student Course Reg", url: '/student_course_reg', icons: 'perm_identity' },
+    ]
+
+    static sidebarItemCouncillor = [
+        { index: '0', title: "Home", url: '/', icons: 'home' },
         { index: '4', title: "Councillor Profile", url: '/councillor_profile', icons: 'perm_identity' },
     ]
+
+    static sidebarItemAdmin = [
+        { index: '0', title: "Home", url: '/', icons: 'home' },
+        { index: '1', title: "Register Courses", url: '/add_courses', icons: 'assessment' },
+    ]
+
 }
 
 export default Config

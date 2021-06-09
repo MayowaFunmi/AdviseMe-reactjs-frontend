@@ -11,6 +11,7 @@ import LogoutComponent from './components/LogoutComponent';
 import Config from './utils/Config';
 import StudentProfile from './components/StudentProfile';
 import CouncillorProfile from './components/CouncillorProfile';
+import StudentCourseRegistration from './components/StudentCourseRegistration';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <PrivateRouteNew exact path="/list_all_courses" activepage='2' page={CourseList}></PrivateRouteNew>
           <PrivateRouteNew exact path="/student_profile/" activepage='3' page={StudentProfile}></PrivateRouteNew>
           <PrivateRouteNew exact path="/councillor_profile" activepage='4' page={CouncillorProfile}></PrivateRouteNew>
+          <PrivateRouteNew exact path="/student_course_reg" activepage='5' page={StudentCourseRegistration}></PrivateRouteNew>
         </Switch>
       </Router>
     </div>
