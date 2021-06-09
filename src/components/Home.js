@@ -5,6 +5,7 @@ import Navbar from './Navbar'
 import Overlay from './Overlay'
 import Sidebar from './Sidebar'
 import 'adminbsb-materialdesign/css/themes/all-themes.css'
+import sideBarItem from './sideBarItem';
 
 class Home extends Component {
 

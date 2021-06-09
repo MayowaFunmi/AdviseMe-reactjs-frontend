@@ -59,6 +59,7 @@ class ApiHandler {
         );
         return response
     }
+    
 
     async saveStudentProfile(user, middle_name, course, student_level, birthday, gender, address, phone_number, country, profile_picture) {
         await this.checkLogin();
