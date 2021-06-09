@@ -29,7 +29,7 @@ class SignUp extends Component {
     
     render() {
         return (
-            <div className='signup-page'>
+            <div className='signup-page ls-closed'>
                 <div className='signup-box'>
                     <div className='logo'>
                         <h1>Sign Up Form</h1>
@@ -37,8 +37,8 @@ class SignUp extends Component {
 
                     <div className='card'>
                         <div className='body'>
-                        <form onSubmit={this.fetchSubmit} method='POST'>
-                            <div className="form-group">
+                        <form id='sign_up' onSubmit={this.fetchSubmit} method='POST'>
+                            <div className="input-group">
                                 <label>Status:</label>
                                 <select name='status'>
                                     <option value='Student'>Student</option>
@@ -46,67 +46,105 @@ class SignUp extends Component {
                                 </select>
                             </div>
 
-                            <div className='form-group'>
-                                <label>Username:</label>
-                                <input 
-                                    type='text'
-                                    name='username'
-                                    className="form-control"
-                                />
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='text'
+                                        name='username'
+                                        className="form-control"
+                                        placeholder='Enter your Username'
+                                    />
+                                </div>
                             </div>
 
-                            <div className='form-group'>
-                                <label>Password:</label>
-                                <input 
-                                    type='password'
-                                    name='password'
-                                    className="form-control"
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='password'
+                                        name='password'
+                                        className="form-control"
+                                        placeholder='Enter Your Password'
                                 />
+                                </div>
                             </div>
 
-                            <div className='form-group'>
-                                <label>Confirm Password:</label>
-                                <input 
-                                    type='password'
-                                    name='password2'
-                                    className="form-control"
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='password'
+                                        name='password2'
+                                        className="form-control"
+                                        placeholder='Confirm Your Password'
                                 />
+                                </div>
                             </div>
 
-                            <div className='form-group'>
-                                <label>Registration Number:</label>
-                                <input 
-                                    type='text'
-                                    name='registration_number'
-                                    className="form-control"
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='text'
+                                        name='registration_number'
+                                        className="form-control"
+                                        placeholder='Enter Your Student Registration Number'
                                 />
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>Email Address:</label>
-                                <input type="email" 
-                                    name='email'
-                                    className="form-control"
+                            <div className="input-group">
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">email</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input type="email" 
+                                        name='email'
+                                        className="form-control"
+                                        placeholder='Enter Your Email Address'
                                 />
+                                </div>
+                                
                             </div>
 
-                            <div className="form-group">
-                                <label>First Name:</label>
-                                <input type="text" 
-                                    name='first_name'
-                                    className="form-control"
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='text'
+                                        name='first_name'
+                                        className="form-control"
+                                        placeholder='Enter Your First Name'
                                 />
+                                </div>
                             </div>
 
-                            <div className="form-group">
-                                <label>Last Name:</label>
-                                <input type="text" 
-                                    name='last_name'
-                                    className="form-control"
+                            <div className='input-group'>
+                                <span className='input-group-addon'>
+                                    <i class="material-icons">person</i>
+                                </span>
+                                <div className='form-line'>
+                                    <input 
+                                        type='text'
+                                        name='last_name'
+                                        className="form-control"
+                                        placeholder='Enter Your Last Name'
                                 />
+                                </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
                     
                         </form>
                         </div>
