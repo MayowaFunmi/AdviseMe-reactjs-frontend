@@ -2,6 +2,7 @@ class Config{
     static loginUrl='http://127.0.0.1:8000/api/token/';
     static homeUrl = '/home';
     static logoutPageUrl = "/logout";
+    static registerUrl = 'http://127.0.0.1:8000/users/register/';
     static signupUrl = '/signup';
     static createCourseUrl = 'http://127.0.0.1:8000/users/create_course/';
     static listAllCoursesUrl = 'http://127.0.0.1:8000/users/all_course_list';

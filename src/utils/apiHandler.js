@@ -6,6 +6,27 @@ const { default: Config } = require("./Config");
 
 
 class ApiHandler {
+
+    async signUp(status, username, password, password2, registration_number, email, first_name, last_name) {
+        console.log('done')
+        var response = await Axios.post(
+            Config.registerUrl, {
+                status: status,
+                username: username,
+                password: password,
+                password2: password2,
+                registration_number: registration_number,
+                email: email,
+                first_name: first_name,
+                last_name: last_name
+            },
+            { headers: { 'Content-type': 'application/json' }}
+        );
+        console.log(response)
+        return response;
+
+    }
+
     async checkLogin() {
         if (AuthHandler.checkTokenExpiry()) {
             try {
