@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import ApiHandler from '../utils/apiHandler';
 import Config from '../utils/Config';
+import GoogleFontLoader from 'react-google-font-loader';
 
 class SignUp extends Component {
     constructor() {
@@ -29,6 +30,24 @@ class SignUp extends Component {
     
     render() {
         return (
+            <React.Fragment>
+            <GoogleFontLoader
+              fonts={[
+                {
+                  font: "Roboto",
+                  weights: [400, 700],
+                },
+              ]}
+              subsets={["latin", "cyrillic-ext"]}
+            />
+            <GoogleFontLoader
+              fonts={[
+                {
+                  font: "Material+Icons",
+                },
+              ]}
+            />
+
             <div className='signup-page ls-closed'>
                 <div className='signup-box'>
                     <div className='logo'>
@@ -151,6 +170,7 @@ class SignUp extends Component {
                     </div>
                 </div>
             </div>
+          </React.Fragment>
         )
     }
 }
