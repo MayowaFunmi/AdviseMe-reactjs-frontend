@@ -11,7 +11,9 @@ class Sidebar extends Component {
         defaultClass: "btn-group user-helper-dropdown",
         all_users: [],
         login_status: '',
-        
+        staff_status: false,
+        username: '',
+        email:'',
     }
 
     constructor(props) {
@@ -25,7 +27,7 @@ class Sidebar extends Component {
     }
 
     componentWillMount() {
-        //document.addEventListener('mousedown', this.handleMouseClick, false)
+        document.addEventListener('mousedown', this.handleMouseClick, false)
     }
 
     componentWillUnmount() {
@@ -60,16 +62,22 @@ class Sidebar extends Component {
         var users = new ApiHandler();
         var response = await users.fetchAllUsers();
         this.setState({ all_users: response.data });
+        console.log(this.state.all_users)
         var username = AuthHandler.getUsername();
 
         {this.state.all_users.map((user) => {
             //console.log(user.username)
             if (user.username == username) {
-                //console.log('yes')
                 //console.log(user.status)
                 var user_status = user.status;
                 //console.log(user_status)
+                ///console.log(user.is_superuser)
                 this.setState({ login_status: user_status })
+                this.setState({ staff_status: user.is_superuser })
+                this.setState({ username: user.username })
+                this.setState({ email: user.email })
+
+                console.log(this.state.staff_status)
                 //console.log(this.state.login_status)
                 return user_status;
             }
@@ -79,8 +87,9 @@ class Sidebar extends Component {
 
     render() {
         var my_status = this.state.login_status;
-        console.log(my_status)
-        if (my_status == "('student', 'student')" || "Student") {
+        var superuser = this.state.staff_status;
+        console.log(superuser)
+        if (my_status == "Student") {
             return (
                 <section>
                     <aside id="leftsidebar" className="sidebar">
@@ -89,8 +98,8 @@ class Sidebar extends Component {
                                 <img src={usericon} width="48" height="48" alt="User" />
                             </div>
                             <div className="info-container">
-                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SuperCoders</div>
-                                <div className="email">john.doe@example.com</div>
+                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.state.username}</div>
+                                <div className="email">{this.state.email}</div>
                                 <div className={this.state.defaultClass}>
                                     <i 
                                         className="material-icons" 
@@ -134,10 +143,10 @@ class Sidebar extends Component {
                 
                         <div className="legal">
                             <div className="copyright">
-                                © 2016 - 2017 <a href="#">AdminBSB - Material Design</a>.
+                                © 2016 - 2017 <a href="#">AdviseMe Project</a>.
                             </div>
                             <div className="version">
-                                <b>Version: </b> 1.0.5
+                                <b>Version: </b> 1.0
                             </div>
                         </div>
                     </aside>
@@ -153,8 +162,8 @@ class Sidebar extends Component {
                                 <img src={usericon} width="48" height="48" alt="User" />
                             </div>
                             <div className="info-container">
-                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SuperCoders</div>
-                                <div className="email">john.doe@example.com</div>
+                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.state.username}</div>
+                                <div className="email">{this.state.email}</div>
                                 <div className={this.state.defaultClass}>
                                     <i 
                                         className="material-icons" 
@@ -208,7 +217,7 @@ class Sidebar extends Component {
             
                 </section> 
             )
-        } else if (my_status == "Course Adviser") {
+        } else if (superuser || my_status == "('student', 'student')") {
             return (
                 <section>
                     <aside id="leftsidebar" className="sidebar">
@@ -217,8 +226,8 @@ class Sidebar extends Component {
                                 <img src={usericon} width="48" height="48" alt="User" />
                             </div>
                             <div className="info-container">
-                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SuperCoders</div>
-                                <div className="email">john.doe@example.com</div>
+                                <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.state.username}</div>
+                                <div className="email">{this.state.email}</div>
                                 <div className={this.state.defaultClass}>
                                     <i 
                                         className="material-icons" 

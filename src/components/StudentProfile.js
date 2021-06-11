@@ -16,9 +16,12 @@ class StudentProfile extends Component {
         errorMessageSuccess: '',
         errorMessageFail: '',
         sendData: false,
+        all_students: [],
     };
     
-
+    componentDidMount() {
+        this.fetchStudents();
+    }
     async formSubmit(event) {
         event.preventDefault();
         this.setState({ btnMessage: 1 });
@@ -45,6 +48,15 @@ class StudentProfile extends Component {
         this.setState({ errorMessageFail: 'Failed To Add Student Profile!!!' });
         this.setState({ sendData: true });
 
+    }
+
+    async fetchStudents() {
+        var api_handler = new ApiHandler();
+        var studentdata = await api_handler.fetchAllStudents();
+        console.log(studentdata)
+        this.setState({
+            all_students: studentdata.data
+        })
     }
 
     render() {

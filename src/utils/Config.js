@@ -9,6 +9,7 @@ class Config{
     static listAllUsersUrl = 'http://127.0.0.1:8000/users/list_users';
     static studentProfileUrl = 'http://127.0.0.1:8000/users/create_student_profile/';
     static councillorProfileUrl = 'http://127.0.0.1:8000/users/create_councillor_profile/';
+    static listAllStudentsProfileUrl = 'http://127.0.0.1:8000/users/list_all_student/';
 
     static sidebarItemStudent = [
         { index: '0', title: "Home", url: '/', icons: 'home' },
