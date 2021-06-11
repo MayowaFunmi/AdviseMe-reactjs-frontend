@@ -108,6 +108,14 @@ class ApiHandler {
         return response;
     }
 
+    async fetchAllStudents() {
+        await this.checkLogin();
+        var response = await Axios.get(Config.listAllStudentsProfileUrl, {
+            headers: { Authorization: 'JWT ' + AuthHandler.getLoginToken()}
+        })
+        return response;
+    }
+
     async saveCouncillorProfile(title, user, qualification, discipline, years_of_experience, birthday, gender, address, phone_number, country, profile_picture) {
         await this.checkLogin();
 
